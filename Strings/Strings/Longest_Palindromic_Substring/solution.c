@@ -1,31 +1,39 @@
 #include<stdio.h>
 int main()
 {
-	char str1[100];int i;int j;int flag;int len1=0;int end;
-	scanf("%s",str1);
-	for(i=0;str1[i]!='\0';i++)
+	char str[100];int i;int j;int len;int max=0;int start;
+	scanf("%s",str);
+	for(i=0;str[i]!='\0';i++)
 	{
-		len1++;
-	}
-	end =len1-1;
-	for(;end>=0;end--)
-	{
-		flag=0;
-		for(i=0,j=end;j>i;i++,j--)
+		for(j=0;i-j>=0&&str[i+j]!='\0';j++)
 		{
-			if(str1[i]!=str1[j])
+			if(str[i+j]!=str[i-j])
 			{
-				flag=1;
 				break;
 			}
+			len=2*j+1;
+			if(len>max)
+			{
+				max=len;
+				start=i-j;
+			}
 		}
-			if(flag==0)
+		for(j=0;i-j>=0&&str[i+j+1]!='\0';j++)
 		{
-			break;
+			if(str[i-j]!=str[i+j+1])
+			{
+				break;
+			}
+			len=2*j+2;
+			if(len>max)
+			{
+				max=len;
+				start=i-j;
+			}
 		}
 	}
-	for(i=0;i<=end;i++)
+	for(i=start;i<start+max;i++)
 	{
-		printf("%c",str1[i]);
+		printf("%c",str[i]);
 	}
 }
